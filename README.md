@@ -42,7 +42,7 @@ conda activate mfa
 - **Git Bash** (recommended - comes with Git for Windows)
 - **WSL** (Windows Subsystem for Linux)
 
-If you don't have Git Bash/WSL, see the [Manual Setup](#manual-setup-without-scripts) section below.
+If you don't have Git Bash/WSL, see the [Manual Setup](#manual-setup-windows-powershell) section below.
 
 That's it! Your TextGrids will be in `aligned_output/`
 
