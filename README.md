@@ -35,6 +35,7 @@ conda install -c conda-forge montreal-forced-aligner -y
 mfa validate corpus/ english_us_arpa english_us_arpa
 mfa align corpus/ english_us_arpa english_us_arpa aligned_output/
 ```
+That's it! Your TextGrids will be in `aligned_output/`
 
 ## Overview
 
