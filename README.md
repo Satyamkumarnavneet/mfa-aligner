@@ -63,10 +63,8 @@ This pipeline automates the entire process of:
 mfa-aligner/
 ├── README.md                     # This documentation
 ├── QUICKSTART.md                 # Quick start guide
-├── QUICK_REFERENCE.md            # Quick reference for common tasks
 ├── COMMANDS.md                   # Detailed command reference
 ├── LICENSE                       # License information
-├── Assignment1.pdf               # Assignment description
 │
 ├── run_all.sh                    # Main pipeline script (START HERE)
 │
