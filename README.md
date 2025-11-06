@@ -2,6 +2,8 @@
 
 A complete automated pipeline for forced alignment of audio and transcripts using the Montreal Forced Aligner (MFA).
 
+**Platform Support:** This pipeline has been fully tested and implemented on **macOS** and works completely fine. Linux users should have the same experience. Windows users can use Git Bash or WSL to run the shell scripts (see instructions below).
+
 ## Quick Start
 
 **Clone the repository:**
@@ -24,17 +26,24 @@ conda activate mfa
 ./run_all.sh
 ```
 
-*Windows (PowerShell):*
-```powershell
+*Windows (use Git Bash or WSL):*
+```bash
 # 1. Setup environment
-conda create -n mfa python=3.10 -y
-conda activate mfa
-conda install -c conda-forge montreal-forced-aligner -y
+./scripts/setup_mfa.sh
 
-# 2. Run alignment manually (shell scripts require WSL or Git Bash on Windows)
-mfa validate corpus/ english_us_arpa english_us_arpa
-mfa align corpus/ english_us_arpa english_us_arpa aligned_output/
+# 2. Activate environment  
+conda activate mfa
+
+# 3. Run pipeline
+./run_all.sh
 ```
+
+**Note for Windows users:** The pipeline uses shell scripts (`.sh` files). You need either:
+- **Git Bash** (recommended - comes with Git for Windows)
+- **WSL** (Windows Subsystem for Linux)
+
+If you don't have Git Bash/WSL, see the [Manual Setup](#manual-setup-without-scripts) section below.
+
 That's it! Your TextGrids will be in `aligned_output/`
 
 ## Overview
@@ -457,6 +466,73 @@ WAV_DIR="${WORKDIR}/wav"             # Audio input directory
 TRANS_DIR="${WORKDIR}/transcripts"   # Transcript input directory
 OUTPUT_DIR="${WORKDIR}/aligned_output" # TextGrid output directory
 ```
+
+## Manual Setup (Windows PowerShell)
+
+**For Windows users without Git Bash or WSL**, you can run the pipeline manually using PowerShell commands:
+
+> **Note:** These PowerShell commands are provided as a fallback option but have not been tested on Windows. The shell scripts (`./run_all.sh`) have been fully tested on macOS and are the recommended approach. For the best experience on Windows, please use **Git Bash** (free with Git for Windows) or **WSL** to run the tested shell scripts.
+
+### 1. Setup Environment
+
+```powershell
+# Create conda environment
+conda create -n mfa python=3.10 -y
+conda activate mfa
+conda install -c conda-forge montreal-forced-aligner -y
+
+# Verify installation
+mfa version
+```
+
+### 2. Prepare Directory Structure
+
+```powershell
+# Create directories
+New-Item -ItemType Directory -Force -Path corpus, aligned_output, logs
+
+# Copy files to corpus
+Copy-Item wav\* corpus\
+Copy-Item transcripts\* corpus\
+
+# Normalize transcript extensions to .lab
+Get-ChildItem corpus\*.txt | Rename-Item -NewName { $_.Name -replace '\.txt$', '.lab' }
+Get-ChildItem corpus\*.TXT | Rename-Item -NewName { $_.Name -replace '\.TXT$', '.lab' }
+```
+
+### 3. Download Models (First Time Only)
+
+```powershell
+mfa model download dictionary english_us_arpa
+mfa model download acoustic english_us_arpa
+```
+
+### 4. Validate Corpus
+
+```powershell
+mfa validate corpus\ english_us_arpa english_us_arpa | Tee-Object -FilePath logs\validate.txt
+```
+
+### 5. Run Alignment
+
+```powershell
+mfa align corpus\ english_us_arpa english_us_arpa aligned_output\ --clean | Tee-Object -FilePath logs\align.txt
+```
+
+### 6. View Results
+
+```powershell
+# List generated TextGrids
+Get-ChildItem aligned_output\*.TextGrid
+
+# Analyze TextGrids (requires Python)
+python tools\metrics.py
+
+# Or view in Praat
+# Download from https://www.fon.hum.uva.nl/praat/
+```
+
+**Note:** For the full automated experience, we recommend using Git Bash (comes free with Git for Windows) and running `./run_all.sh` instead.
 
 ## Understanding the Output
 
