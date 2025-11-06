@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 analyze_textgrids.py - TextGrid Analysis Script
 

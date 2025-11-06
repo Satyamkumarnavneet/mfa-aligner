@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 analyze_oov.py - Out-of-Vocabulary (OOV) Word Analysis
 

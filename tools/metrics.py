@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 metrics.py - Metrics Collection for MFA Alignment Pipeline
   - Counts of input files (WAV, LAB)
