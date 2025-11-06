@@ -1,21 +1,21 @@
 # MFA Pipeline - Quick Command Reference
 
-## 🚀 Essential Commands
+## Essential Commands
 
 ### Setup (One-time)
 ```bash
-./setup_mfa.sh          # Create environment and install MFA
+./scripts/setup_mfa.sh  # Create environment and install MFA
 conda activate mfa      # Activate the environment
 ```
 
 ### Main Pipeline
 ```bash
-./run_all.sh           # Run complete pipeline (setup → alignment → metrics)
+./run_all.sh           # Run complete pipeline (setup -> alignment -> metrics)
 ```
 
 ---
 
-## 📂 Individual Operations
+## Individual Operations
 
 ### Environment
 ```bash
@@ -26,8 +26,7 @@ mfa version                          # Check MFA version
 
 ### Audio Preprocessing
 ```bash
-./prepare_audio.sh                   # Convert audio to MFA format
-./scripts/prepare_audio.sh           # Same (organized location)
+./scripts/prepare_audio.sh           # Convert audio to MFA format
 ```
 
 ### Validation
@@ -38,10 +37,13 @@ mfa version                          # Check MFA version
 ### Metrics & Analysis
 ```bash
 # Basic metrics (run during pipeline)
-python3 python/metrics.py ./corpus ./aligned_output ./logs/validate_*.txt
+python3 tools/metrics.py ./corpus ./aligned_output ./logs/validate_*.txt
 
 # Detailed TextGrid analysis
-python3 python/analyze_textgrids.py ./aligned_output
+python3 tools/analyze_textgrids.py ./aligned_output
+
+# OOV word analysis
+python3 tools/analyze_oov.py ./logs/validate_*.txt
 ```
 
 ### Cleanup
@@ -51,7 +53,7 @@ python3 python/analyze_textgrids.py ./aligned_output
 
 ---
 
-## 🔧 Advanced MFA Commands
+## Advanced MFA Commands
 
 ### Model Management
 ```bash
@@ -76,7 +78,7 @@ mfa g2p english_us_arpa ./corpus ./output_dict.txt
 
 ---
 
-## 📊 Checking Status
+## Checking Status
 
 ### View Files
 ```bash
@@ -104,10 +106,8 @@ ls aligned_output/*.TextGrid | wc -l # Count TextGrids
 
 ---
 
-## 🐍 Python Tools
+## Python Tools
 
-### Metrics Collection
-```bash
 ### Metrics Collection
 
 Collect and display alignment metrics:
@@ -118,10 +118,7 @@ python3 tools/metrics.py <corpus_dir> <output_dir> <validate_log>
 # Example
 python3 tools/metrics.py corpus/ aligned_output/ logs/validate.txt
 ```
-```
 
-### TextGrid Analysis
-```bash
 ### TextGrid Analysis
 
 Analyze generated TextGrid files:
@@ -132,11 +129,21 @@ python3 tools/analyze_textgrids.py <textgrid_directory>
 # Example
 python3 tools/analyze_textgrids.py aligned_output/
 ```
+
+### OOV Analysis
+
+Analyze out-of-vocabulary words:
+
+```bash
+python3 tools/analyze_oov.py <validation_log>
+
+# Example
+python3 tools/analyze_oov.py logs/validate_20251106_163727.txt
 ```
 
 ---
 
-## 🗑️ Cleanup Operations
+## Cleanup Operations
 
 ### Clean Generated Files Only
 ```bash
@@ -160,14 +167,13 @@ rm -f aligned_output_*.zip           # Remove archives
 
 ---
 
-## 📖 Documentation
+## Documentation
 
 ### View Documentation
 ```bash
 cat README.md                        # Full documentation
 cat QUICKSTART.md                    # Quick start guide
-cat STRUCTURE.md                     # Project structure
-cat SETUP_COMPLETE.txt               # Setup summary
+cat COMMANDS.md                      # Command reference
 ```
 
 ### Open in Editor
@@ -178,16 +184,13 @@ code README.md                       # VS Code
 
 ---
 
-## 🔍 Troubleshooting Commands
+## Troubleshooting Commands
 
 ### Check MFA Installation
 ```bash
 which mfa                            # Find MFA location
 mfa version                          # Check version
 mfa --help                           # View help
-
-# If you see "No module named '_kalpy'" error:
-./FIX_KALPY_ERROR.sh                # Run automatic fix
 ```
 
 ### Check Python Environment
@@ -211,7 +214,7 @@ file transcripts/*                   # Check transcript format
 
 ---
 
-## 📦 Packaging
+## Packaging
 
 ### Create Archive
 ```bash
@@ -229,7 +232,7 @@ unzip aligned_output_*.zip
 
 ---
 
-## ⚙️ Configuration
+## Configuration
 
 ### View Current Settings
 ```bash
@@ -245,11 +248,11 @@ code run_all.sh                      # Open in VS Code
 
 ---
 
-## 🎯 Common Workflows
+## Common Workflows
 
 ### First Run
 ```bash
-./setup_mfa.sh
+./scripts/setup_mfa.sh
 conda activate mfa
 ./run_all.sh
 ```
@@ -272,14 +275,14 @@ conda activate mfa
 ### Preprocess + Align
 ```bash
 conda activate mfa
-./prepare_audio.sh
+./scripts/prepare_audio.sh
 # Edit run_all.sh to use wav_processed/
 ./run_all.sh
 ```
 
 ---
 
-## 📊 Performance Tuning
+## Performance Tuning
 
 ### Adjust CPU Cores
 ```bash
@@ -295,20 +298,20 @@ htop                   # Better top (if installed)
 
 ---
 
-## 🔗 Quick Links
+## Quick Links
 
 | Command | Description |
 |---------|-------------|
-| `./setup_mfa.sh` | Setup environment |
+| `./scripts/setup_mfa.sh` | Setup environment |
 | `./run_all.sh` | Run pipeline |
 | `conda activate mfa` | Activate environment |
 | `./scripts/validate_corpus.sh` | Validate only |
 | `./scripts/clean_workspace.sh` | Cleanup |
-| `python3 python/analyze_textgrids.py ./aligned_output` | Analyze results |
+| `python3 tools/analyze_textgrids.py ./aligned_output` | Analyze results |
 
 ---
 
-## 📞 Getting Help
+## Getting Help
 
 ```bash
 mfa --help                           # MFA help

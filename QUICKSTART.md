@@ -2,11 +2,11 @@
 
 This guide will get you up and running in 5 minutes!
 
-## 🚀 Super Quick Start (3 Commands)
+## Super Quick Start (3 Commands)
 
 ```bash
 # 1. Setup environment
-./setup_mfa.sh
+./scripts/setup_mfa.sh
 
 # 2. Activate environment  
 conda activate mfa
@@ -19,7 +19,7 @@ That's it! Your TextGrids will be in `aligned_output/`
 
 ---
 
-## 📋 Step-by-Step Guide
+## Step-by-Step Guide
 
 ### Step 1: Prerequisites Check
 
@@ -28,8 +28,8 @@ That's it! Your TextGrids will be in `aligned_output/`
 conda --version
 ```
 
-- ✅ If you see a version number → Continue to Step 2
-- ❌ If you get "command not found" → Install Miniconda:
+- If you see a version number -> Continue to Step 2
+- If you get "command not found" -> Install Miniconda:
   ```bash
   # macOS
   brew install miniconda
@@ -45,8 +45,8 @@ conda --version
 cd /path/to/mfa-aligner
 
 # Run setup script
-chmod +x setup_mfa.sh
-./setup_mfa.sh
+chmod +x scripts/setup_mfa.sh
+./scripts/setup_mfa.sh
 ```
 
 **What this does:**
@@ -57,7 +57,7 @@ chmod +x setup_mfa.sh
 
 **Expected output:**
 ```
-✅ SUCCESS! MFA installed successfully
+SUCCESS! MFA installed successfully
 ```
 
 ### Step 3: Activate Environment
@@ -92,7 +92,7 @@ ISLE_SESS0131_BLOCKD02_02_sprt1.txt
 ISLE_SESS0131_BLOCKD02_03_sprt1.txt
 ```
 
-✅ File names match between audio and transcripts!
+File names match between audio and transcripts!
 
 ### Step 5: Run the Pipeline
 
@@ -113,11 +113,11 @@ chmod +x run_all.sh
 
 **Progress indicators:**
 ```
-✓ Audio files copied
-✓ Transcripts normalized
-✓ Models ready
-✓ Validation complete
-✓ Alignment complete
+Audio files copied
+Transcripts normalized
+Models ready
+Validation complete
+Alignment complete
 ```
 
 ### Step 6: Check Your Results
@@ -144,7 +144,7 @@ Contains detailed logs of validation and alignment.
 
 ---
 
-## 🎯 What to Do Next
+## What to Do Next
 
 ### Option 1: Inspect Alignments in Praat
 
@@ -164,7 +164,7 @@ Contains detailed logs of validation and alignment.
 ### Option 2: Analyze All TextGrids
 
 ```bash
-python3 python/analyze_textgrids.py ./aligned_output
+python3 tools/analyze_textgrids.py ./aligned_output
 ```
 
 This shows:
@@ -191,13 +191,13 @@ Then run again:
 
 ---
 
-## 🔧 Optional: Audio Preprocessing
+## Optional: Audio Preprocessing
 
 If you have different audio files with varying formats:
 
 ```bash
-chmod +x prepare_audio.sh
-./prepare_audio.sh
+chmod +x scripts/prepare_audio.sh
+./scripts/prepare_audio.sh
 ```
 
 This converts all audio to:
@@ -209,7 +209,7 @@ Processed files go to `wav_processed/`
 
 ---
 
-## 🧹 Cleanup (When You're Done)
+## Cleanup (When You're Done)
 
 To remove generated files and start fresh:
 
@@ -229,7 +229,7 @@ Your original `wav/` and `transcripts/` folders are preserved!
 
 ---
 
-## ❓ Troubleshooting
+## Troubleshooting
 
 ### Problem: "mfa: command not found"
 
@@ -275,25 +275,9 @@ mfa align corpus/ output_dict.txt english_us_arpa aligned_output/
 chmod +x *.sh scripts/*.sh
 ```
 
-### Problem: "No module named '_kalpy'" Error
-
-**Solution:**
-```bash
-# Quick fix - run the fix script
-chmod +x FIX_KALPY_ERROR.sh
-./FIX_KALPY_ERROR.sh
-
-# Or manual fix
-conda activate mfa
-conda install -c conda-forge montreal-forced-aligner -y
-```
-
-**Why this happens:**
-MFA requires kalpy which may not install properly via pip. Using conda-forge is more reliable.
-
 ---
 
-## 📊 Expected Output Structure
+## Expected Output Structure
 
 After running the pipeline:
 
@@ -321,7 +305,7 @@ mfa-aligner/
 
 ---
 
-## 🎓 Understanding the Metrics
+## Understanding the Metrics
 
 When the pipeline completes, you'll see a report like:
 
@@ -330,17 +314,17 @@ When the pipeline completes, you'll see a report like:
   MFA ALIGNMENT METRICS REPORT
 ================================================================================
 
-📁 INPUT FILES
+INPUT FILES
 --------------------------------------------------------------------------------
   WAV files (audio):           6
   LAB files (transcripts):     6
 
-📊 OUTPUT FILES
+OUTPUT FILES
 --------------------------------------------------------------------------------
   TextGrid files generated:    6
   Alignment coverage:      100.0%
 
-🔍 VALIDATION RESULTS
+VALIDATION RESULTS
 --------------------------------------------------------------------------------
   Validation log:           ./logs/validate_20251105_123456.txt
   OOV occurrences:             12
@@ -354,25 +338,25 @@ When the pipeline completes, you'll see a report like:
 ================================================================================
   SUMMARY
 ================================================================================
-  ✅ Alignment completed successfully!
+  Alignment completed successfully!
      6 TextGrid file(s) generated
-  ✅ All audio files were aligned
+  All audio files were aligned
 ```
 
 **What this means:**
-- ✅ **100% coverage**: All audio files were successfully aligned
-- ⚠️ **OOV words**: Some words weren't in the dictionary (common for disfluencies)
-- 📊 **6 TextGrids**: One output file for each input audio file
+- **100% coverage**: All audio files were successfully aligned
+- **OOV words**: Some words weren't in the dictionary (common for disfluencies)
+- **6 TextGrids**: One output file for each input audio file
 
 ---
 
-## 🎉 Success!
+## Success!
 
 You now have:
-- ✅ Aligned TextGrid files ready for analysis
-- ✅ Detailed logs for troubleshooting
-- ✅ Metrics showing alignment quality
-- ✅ Complete archive for sharing/submission
+- Aligned TextGrid files ready for analysis
+- Detailed logs for troubleshooting
+- Metrics showing alignment quality
+- Complete archive for sharing/submission
 
 **Next Steps:**
 1. Open TextGrids in Praat to inspect alignments
@@ -381,7 +365,7 @@ You now have:
 
 ---
 
-## 📞 Need Help?
+## Need Help?
 
 1. **Check logs**: `cat logs/pipeline_*.log`
 2. **Re-run validation**: `./scripts/validate_corpus.sh`
