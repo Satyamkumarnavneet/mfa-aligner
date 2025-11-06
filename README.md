@@ -584,13 +584,6 @@ python --version
 pip list | grep montreal
 ```
 
-## Additional Resources
-
-- **MFA Documentation**: <https://montreal-forced-aligner.readthedocs.io/>
-- **Praat**: <https://www.fon.hum.uva.nl/praat/>
-- **MFA Models**: <https://mfa-models.readthedocs.io/>
-- **Assignment PDF**: Assignment1.pdf (included in repository)
-
 ## License
 
 See [LICENSE](LICENSE) file for details.
